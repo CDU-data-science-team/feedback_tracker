@@ -10,7 +10,9 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      h1("feedback_tracker")
+      h1("feedback_tracker"),
+      
+      mod_summary_ui("summary_ui_1")
     )
   )
 }
@@ -30,7 +32,7 @@ golem_add_external_resources <- function(){
   )
  
   tags$head(
-    favicon(),
+    favicon(ext = 'png'),
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'feedback_tracker'

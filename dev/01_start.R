@@ -34,7 +34,7 @@ golem::set_golem_options()
 
 ## Create Common Files ----
 ## See ?usethis for more information
-usethis::use_mit_license( "Golem User" )  # You can set another license here
+usethis::use_mit_license( "Nottinghamshire Healthcare NHS Trust" )
 usethis::use_readme_rmd( open = FALSE )
 usethis::use_code_of_conduct()
 usethis::use_lifecycle_badge( "Experimental" )
@@ -52,7 +52,7 @@ golem::use_recommended_deps()
 
 ## Favicon ----
 # If you want to change the favicon (default is golem's one)
-golem::use_favicon() # path = "path/to/ico". Can be an online file. 
+golem::use_favicon("https://raw.githubusercontent.com/CDU-data-science-team/assets/main/logo/nottshc-cdu-data-science-logo-crop.png") # path = "path/to/ico". Can be an online file. 
 golem::remove_favicon()
 
 ## Add helper functions ----
