@@ -19,13 +19,13 @@ mod_summary_ui <- function(id){
 #' summary Server Functions
 #'
 #' @noRd 
-mod_summary_server <- function(id, period){
+mod_summary_server <- function(id, reactive_inputs){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     output$time_graph <- renderPlot({
       
-      count_responses(trustData, period, TRUE) %>% 
+      count_responses(trustData, reactive_inputs()$period, TRUE) %>% 
         ggplot2::ggplot(ggplot2::aes(x = date_count, y = n, 
                                      group = 1, colour = type)) +
         ggplot2::geom_line() + ggplot2::geom_point() + 
