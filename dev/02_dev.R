@@ -11,7 +11,12 @@
 #### CURRENT FILE: DEV SCRIPT #####
 ###################################
 
+stop() # this is there because I am a bear of very little brain
+
 # Engineering
+# use pipe
+
+usethis::use_pipe()
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
