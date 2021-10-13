@@ -3,16 +3,44 @@
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @import shinydashboard
 #' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic 
-    fluidPage(
-      h1("feedback_tracker"),
+    dashboardPage(
       
-      mod_summary_ui("summary_ui_1")
+      dashboardHeader(title = "Patient experience",
+                      titleWidth = 300),
+      dashboardSidebar(
+        width = 300,
+        sidebarMenu(
+          
+          menuItem("Survey responses", 
+                   tabName = "survey-responses",
+                   icon = shiny::icon("comment"),
+                   selected = TRUE),
+          
+          selectInput("period", "Period",
+                      choices = c("Weekly" = "week", 
+                                  "Monthly" = "month", 
+                                  "Quarterly" = "quarter"),
+                      selected = "Monthly")
+        )
+      ),
+      dashboardBody(
+        ### Changing theme
+        dashboardthemes::shinyDashboardThemes(
+          theme = "grey_light"
+        ),
+        tabItems(
+          tabItem(tabName = "survey-responses",
+                  mod_summary_ui("summary_ui_1")
+          )
+        )
+      )
     )
   )
 }
@@ -30,12 +58,12 @@ golem_add_external_resources <- function(){
   add_resource_path(
     'www', app_sys('app/www')
   )
- 
+  
   tags$head(
     favicon(ext = 'png'),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'feedback_tracker'
+      app_title = 'feedbackTracker'
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 

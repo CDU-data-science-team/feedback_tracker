@@ -20,12 +20,15 @@ usethis::use_pipe()
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package( "thinkr" )
+usethis::use_package( "dplyr" )
+usethis::use_package( "tidyr" )
+usethis::use_package( "ggplot2" )
+usethis::use_package( "shinydashboard" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "summary" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "care_opinion" ) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
@@ -44,12 +47,12 @@ usethis::use_data_raw( name = "my_dataset", open = FALSE )
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test( "app" )
+usethis::use_test( "count_responses" )
 
 # Documentation
 
 ## Vignette ----
-usethis::use_vignette("feedback_tracker")
+usethis::use_vignette("feedbackTracker")
 devtools::build_vignettes()
 
 ## Code Coverage----

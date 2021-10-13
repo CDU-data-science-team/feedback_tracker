@@ -19,7 +19,7 @@
 ## to change the name in the app_sys() function in app_config.R /!\
 ## 
 golem::fill_desc(
-  pkg_name = "feedback_tracker", # The Name of the package containing the App 
+  pkg_name = "feedbackTracker", # The Name of the package containing the App 
   pkg_title = "Feedback tracker", # The Title of the package containing the App 
   pkg_description = "This package counts the type and location of different 
   types of patient experience feedback", 

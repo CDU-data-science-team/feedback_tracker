@@ -9,7 +9,7 @@
 #' 
 #' @noRd
 app_sys <- function(...){
-  system.file(..., package = "feedback_tracker")
+  system.file(..., package = "feedbackTracker")
 }
 
 
