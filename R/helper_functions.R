@@ -20,8 +20,9 @@ count_responses <- function(data, period, mode){
   if(mode){
     
     count_df <- count_df %>% 
-      dplyr::group_by(date_count)
+      dplyr::group_by(type)
   }
   count_df %>% 
-    dplyr::count(type, .drop = FALSE)
+    dplyr::group_by(date_count, .add = TRUE) %>% 
+    dplyr::summarise(n = dplyr::n(), .drop = FALSE)
 }

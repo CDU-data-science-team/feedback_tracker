@@ -19,20 +19,22 @@ mod_summary_ui <- function(id){
 #' summary Server Functions
 #'
 #' @noRd 
-mod_summary_server <- function(id, reactive_inputs){
+mod_summary_server <- function(id, trustData, reactive_inputs){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     output$time_graph <- renderPlot({
       
-      count_responses(trustData, reactive_inputs()$period, TRUE) %>% 
+      count_responses(trustData, 
+                      reactive_inputs()$period, 
+                      reactive_inputs()$separate_mode) %>% 
         ggplot2::ggplot(ggplot2::aes(x = date_count, y = n, 
                                      group = 1, colour = type)) +
         ggplot2::geom_line() + ggplot2::geom_point() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(
           angle = 45, hjust = 1)) +
         ggplot2::theme(legend.position = "none") +
-        ggplot2::facet_wrap(~ type, scales = "free_y", ncol = 1)
+        ggplot2::facet_wrap(~ type, scales = "free_y", ncol = 3)
     })
     
   })

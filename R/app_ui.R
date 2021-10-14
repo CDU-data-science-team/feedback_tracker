@@ -27,7 +27,8 @@ app_ui <- function(request) {
                       choices = c("Weekly" = "week", 
                                   "Monthly" = "month", 
                                   "Quarterly" = "quarter"),
-                      selected = "Monthly")
+                      selected = "Monthly"),
+          checkboxInput("separate_mode", "Separate mode of response")
         )
       ),
       dashboardBody(

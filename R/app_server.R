@@ -26,9 +26,11 @@ app_server <- function( input, output, session ) {
   
   reactive_inputs <- reactive(
     list(
-      "period" = input$period
+      "period" = input$period,
+      "separate_mode" = input$separate_mode
     )
   )
   
-  mod_summary_server("summary_ui_1", reactive_inputs = reactive_inputs)
+  mod_summary_server("summary_ui_1", trustData = trustData, 
+                     reactive_inputs = reactive_inputs)
 }
