@@ -12,7 +12,7 @@ mod_summary_ui <- function(id){
   tagList(
     
     plotOutput(ns("time_graph")),
-    tableOutput(ns("response_table"))
+    DT::DTOutput(ns("response_table"))
   )
 }
 
@@ -25,17 +25,25 @@ mod_summary_server <- function(id, trustData, reactive_inputs){
     
     output$time_graph <- renderPlot({
       
-      count_responses(trustData, 
+      draw_plot <- count_responses(trustData, 
                       reactive_inputs()$period, 
                       reactive_inputs()$separate_mode) %>% 
-        ggplot2::ggplot(ggplot2::aes(x = date_count, y = n, 
-                                     group = 1, colour = type)) +
+        ggplot2::ggplot(ggplot2::aes(x = date_count, y = n)) +
         ggplot2::geom_line() + ggplot2::geom_point() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(
           angle = 45, hjust = 1)) +
-        ggplot2::theme(legend.position = "none") +
-        ggplot2::facet_wrap(~ type, scales = "free_y", ncol = 3)
+        ggplot2::theme(legend.position = "none")
+      
+      if(reactive_inputs()$separate_mode){
+        
+        draw_plot <- draw_plot + 
+          ggplot2::facet_wrap(~ type, scales = "free_y", ncol = 1)
+      }
+      
+      draw_plot
     })
+    
+
     
   })
 }

@@ -32,10 +32,6 @@ app_ui <- function(request) {
         )
       ),
       dashboardBody(
-        ### Changing theme
-        dashboardthemes::shinyDashboardThemes(
-          theme = "grey_light"
-        ),
         tabItems(
           tabItem(tabName = "survey-responses",
                   mod_summary_ui("summary_ui_1")
