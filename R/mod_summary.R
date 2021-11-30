@@ -11,8 +11,14 @@ mod_summary_ui <- function(id){
   ns <- NS(id)
   tagList(
     
-    plotOutput(ns("time_graph")),
-    DT::DTOutput(ns("response_table"))
+    fluidRow(
+      column(6, 
+             plotOutput(ns("time_graph"))
+      ),
+      column(6,
+             DT::DTOutput(ns("response_table"))
+      )
+    )
   )
 }
 
@@ -26,8 +32,8 @@ mod_summary_server <- function(id, trustData, reactive_inputs){
     output$time_graph <- renderPlot({
       
       draw_plot <- count_responses(trustData, 
-                      reactive_inputs()$period, 
-                      reactive_inputs()$separate_mode) %>% 
+                                   reactive_inputs()$period, 
+                                   reactive_inputs()$separate_mode) %>% 
         ggplot2::ggplot(ggplot2::aes(x = date_count, y = n)) +
         ggplot2::geom_line() + ggplot2::geom_point() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(
@@ -43,7 +49,13 @@ mod_summary_server <- function(id, trustData, reactive_inputs){
       draw_plot
     })
     
-
-    
+    output$response_table <- DT::renderDT({
+      
+      table_data <- trustData %>% 
+        count_responses(reactive_inputs()$period, 
+                        reactive_inputs()$separate_mode, 
+                        area = "Division2")
+      
+    }, rownames = FALSE, filter = "top")
   })
 }

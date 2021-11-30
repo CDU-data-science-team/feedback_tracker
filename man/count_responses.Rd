@@ -4,7 +4,7 @@
 \alias{count_responses}
 \title{Calculate the number of patient feedback received by week/ month/ quarter}
 \usage{
-count_responses(data, period, mode)
+count_responses(data, period, mode, area = NULL)
 }
 \arguments{
 \item{data}{Dataframe, filtered by date/ area in a reactive function}

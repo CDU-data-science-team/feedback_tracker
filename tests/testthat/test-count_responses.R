@@ -11,4 +11,10 @@ test_that("Counting responses works", {
   test_month <- count_responses(trustData, "month", TRUE)
   
   expect_gt(nrow(test_month), 50)
+  
+  count_responses(trustData, "month", TRUE)
+  
+  trustData %>% 
+    count_responses("week", TRUE, area = "Division2")
+
 })
