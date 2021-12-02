@@ -4,7 +4,7 @@
 \alias{count_responses}
 \title{Calculate the number of patient feedback received by week/ month/ quarter}
 \usage{
-count_responses(data, period, mode, area = NULL)
+count_responses(data, period, mode, area = NA)
 }
 \arguments{
 \item{data}{Dataframe, filtered by date/ area in a reactive function}
@@ -13,6 +13,9 @@ count_responses(data, period, mode, area = NULL)
 granularity with respect to time}
 
 \item{mode}{boolean- return grouped by mode of response or all together}
+
+\item{area}{level of trust to report at- NA for Trust, or string giving
+grouping variable- Division, Directorate, Team}
 }
 \description{
 This function takes a (filtered) dataset and returns the numbers

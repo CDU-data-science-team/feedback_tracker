@@ -16,5 +16,14 @@ test_that("Counting responses works", {
   
   trustData %>% 
     count_responses("week", TRUE, area = "Division2")
+  
+  trustData %>% 
+    count_responses("week", FALSE, area = "Division2")
+  
+  trustData %>% 
+    count_responses("week", TRUE, area = NA)
+  
+  trustData %>% 
+    count_responses("week", FALSE, area = NA)
 
 })

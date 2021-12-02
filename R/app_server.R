@@ -23,12 +23,17 @@ app_server <- function( input, output, session ) {
   
   # inputs
   
-  reactive_inputs <- reactive(
+  reactive_inputs <- reactive({
+    
+    area_select <- ifelse(input$separate_area, input$select_area, NA)
+    
     list(
       "period" = input$period,
-      "separate_mode" = input$separate_mode
+      "separate_mode" = input$separate_mode,
+      "select_area" = area_select,
+      "separate_area" = input$separate_area
     )
-  )
+  })
   
   mod_summary_server("summary_ui_1", trustData = trustData, 
                      reactive_inputs = reactive_inputs)

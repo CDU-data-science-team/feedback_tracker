@@ -18,9 +18,9 @@ app_ui <- function(request) {
         width = 300,
         sidebarMenu(
           
-          menuItem("Survey responses", 
+          menuItem("Summary", 
                    tabName = "survey-responses",
-                   icon = shiny::icon("comment"),
+                   icon = shiny::icon("chart-line"),
                    selected = TRUE),
           
           selectInput("period", "Period",
@@ -28,6 +28,13 @@ app_ui <- function(request) {
                                   "Monthly" = "month", 
                                   "Quarterly" = "quarter"),
                       selected = "Monthly"),
+          selectInput("select_area", "Select reporting level",
+                      choices = c("Trust" = "Division2"), 
+                                  # "Division", 
+                                  # "Directorate",
+                                  # "Team")
+          ),
+          checkboxInput("separate_area", "Break down individual areas"),
           checkboxInput("separate_mode", "Separate mode of response")
         )
       ),
