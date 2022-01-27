@@ -13,7 +13,7 @@ mod_summary_ui <- function(id){
     
     navbarPage("",
                tabPanel("Graph",
-                        plotOutput(ns("time_graph"))),
+                        plotOutput(ns("time_graph"), height = "600px")),
                tabPanel(
                  "Table",
                  p("Click in the boxes above the table to filter based 
@@ -27,7 +27,7 @@ mod_summary_ui <- function(id){
 #' summary Server Functions
 #'
 #' @noRd 
-mod_summary_server <- function(id, trustData, reactive_inputs){
+mod_summary_server <- function(id, filter_data, reactive_inputs){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
@@ -35,7 +35,7 @@ mod_summary_server <- function(id, trustData, reactive_inputs){
       
       cat(str(reactive_inputs()))
       
-      draw_plot <- count_responses(data = trustData, 
+      draw_plot <- count_responses(data = filter_data(), 
                                    period = reactive_inputs()$period, 
                                    mode = reactive_inputs()$separate_mode,
                                    area = reactive_inputs()$select_area) %>% 
