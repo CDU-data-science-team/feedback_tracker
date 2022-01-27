@@ -23,17 +23,14 @@ app_server <- function( input, output, session ) {
   
   output$directorate_UI <- renderUI({
     
+    if(input$select_area != "TeamN"){
+      return()
+    }
+    
     # if directorate is empty return all directorates
     
-    if(is.null(input$Division)){
-      
-      finalTable = dirTable
-      
-    } else {
-      
-      finalTable = dirTable %>%
-        dplyr::filter(Division %in% input$Division)
-    }
+    finalTable = dirTable %>%
+      dplyr::filter(Division %in% input$select_division)
     
     # get rid of corporate and unknown
     
@@ -79,12 +76,14 @@ app_server <- function( input, output, session ) {
     
     if(input$select_area == "TeamN"){ # this is directorate level, confusingly
       
-      cat(str(input$input$select_directorate))
+      if(!isTruthy(input$select_directorate)){
+        
+        return(trustData %>% 
+                 dplyr::filter(Division %in% input$select_division))
+      }
       
       to_return <- trustData %>%
         dplyr::filter(Directorate %in% input$select_directorate)
-      
-      cat(str(to_return))
       
       return(to_return)
     }
