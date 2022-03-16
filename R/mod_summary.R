@@ -79,8 +79,9 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
       
       table_data <- filter_data() %>% 
         count_responses(reactive_inputs()$period, 
-                        reactive_inputs()$separate_mode, 
-                        area = "Division2")
+                        reactive_inputs()$separate_mode,
+                        area = reactive_inputs()$select_area,
+                        filter_facets = reactive_inputs()$filter_facets)
       
     }, rownames = FALSE, 
     filter = "top", 
