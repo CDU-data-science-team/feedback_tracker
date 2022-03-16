@@ -15,7 +15,7 @@ test_that("Counting responses works", {
   count_responses(trustData, "month", TRUE)
   
   trustData %>% 
-    count_responses("week", TRUE, area = "Division2")
+    count_responses(period = "week", mode = TRUE, area = "Division2")
   
   trustData %>% 
     count_responses("week", FALSE, area = "Division2")
@@ -25,5 +25,9 @@ test_that("Counting responses works", {
   
   trustData %>% 
     count_responses("week", FALSE, area = NA)
+  
+  trustData %>% 
+    dplyr::filter(Division == 2) %>% 
+    count_responses("week", FALSE, area = "Directorate2")
 
 })
