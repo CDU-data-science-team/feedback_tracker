@@ -33,10 +33,12 @@ app_ui <- function(request) {
                                   "Division" = "Directorate2",
                                   "Directorate" = "TeamN")
           ),
-          selectInput("select_division", "Select division",
-                      choices = c("Mental health services" = 0,
-                                  "Physical health services" = 2,
-                                  "Forensic services" = 1)),
+          conditionalPanel("input.select_area == ' Division2'", 
+                           selectInput("select_division", "Select division",
+                                       choices = c("Mental health services" = 0,
+                                                   "Community health services" = 2,
+                                                   "Forensic services" = 1))
+          ),
           uiOutput("directorate_UI"),
           checkboxInput("separate_area", "Break down individual areas"),
           checkboxInput("separate_mode", "Separate mode of response")

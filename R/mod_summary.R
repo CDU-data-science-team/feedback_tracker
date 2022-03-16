@@ -33,8 +33,6 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
     
     output$time_graph <- renderPlot({
       
-      cat(str(reactive_inputs()))
-      
       draw_plot <- count_responses(data = filter_data(), 
                                    period = reactive_inputs()$period, 
                                    mode = reactive_inputs()$separate_mode,
@@ -76,7 +74,7 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
     
     output$response_table <- DT::renderDT({
       
-      table_data <- trustData %>% 
+      table_data <- filter_data() %>% 
         count_responses(reactive_inputs()$period, 
                         reactive_inputs()$separate_mode, 
                         area = "Division2")
