@@ -50,6 +50,29 @@ app_server <- function( input, output, session ) {
     
   })
   
+  output$filter_facetsUI <- renderUI({
+    
+    if(!input$separate_area){
+      
+      return()
+    }
+    
+    areas_to_include <- na.omit(unique(filter_data()[, input$select_area]))
+    
+    if(length(areas_to_include) > 5){
+      
+      filtered_areas <- areas_to_include[1 : 5]
+    } else {
+      
+      filtered_areas <- areas_to_include
+    }
+    
+    selectInput("filter_facets", "Areas to compare",
+                choices = areas_to_include, 
+                multiple = TRUE,
+                selected = filtered_areas)
+  })
+  
   # data
   
   filter_data <- reactive({
@@ -68,8 +91,6 @@ app_server <- function( input, output, session ) {
       
       to_return <- trustData %>% 
         dplyr::filter(Division %in% input$select_division)
-      
-      cat(str(to_return))
       
       return(to_return)
     }
@@ -98,9 +119,10 @@ app_server <- function( input, output, session ) {
     
     list(
       "period" = input$period,
-      "separate_mode" = input$separate_mode,
+      "separate_mode" = input$separate_mode, # BOOLEAN
       "select_area" = area_select,
-      "separate_area" = input$separate_area
+      "separate_area" = input$separate_area, # BOOLEAN
+      "filter_facets" = input$filter_facets
     )
   })
   

@@ -33,10 +33,13 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
     
     output$time_graph <- renderPlot({
       
-      draw_plot <- count_responses(data = filter_data(), 
-                                   period = reactive_inputs()$period, 
-                                   mode = reactive_inputs()$separate_mode,
-                                   area = reactive_inputs()$select_area) %>% 
+      draw_plot <- count_responses(
+        data = filter_data(), 
+        period = reactive_inputs()$period, 
+        mode = reactive_inputs()$separate_mode,
+        area = reactive_inputs()$select_area,
+        filter_facets = reactive_inputs()$filter_facets) %>% 
+        # now plot
         ggplot2::ggplot(ggplot2::aes(x = date_count, y = n)) +
         ggplot2::geom_line() + ggplot2::geom_point() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(
@@ -44,7 +47,7 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
         ggplot2::theme(legend.position = "none")
       
       if(reactive_inputs()$separate_mode & reactive_inputs()$separate_area){
-
+        
         return(
           draw_plot +
             ggplot2::facet_grid(ggplot2::vars(area),
@@ -52,9 +55,9 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
                                 scales = "free_y")
         )
       }
-
+      
       if(reactive_inputs()$separate_mode){
-
+        
         return(
           draw_plot +
             ggplot2::facet_wrap(~ type, scales = "free_y", ncol = 1)
@@ -76,8 +79,9 @@ mod_summary_server <- function(id, filter_data, reactive_inputs){
       
       table_data <- filter_data() %>% 
         count_responses(reactive_inputs()$period, 
-                        reactive_inputs()$separate_mode, 
-                        area = "Division2")
+                        reactive_inputs()$separate_mode,
+                        area = reactive_inputs()$select_area,
+                        filter_facets = reactive_inputs()$filter_facets)
       
     }, rownames = FALSE, 
     filter = "top", 
