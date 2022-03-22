@@ -61,6 +61,14 @@ app_server <- function( input, output, session ) {
     
     if(length(areas_to_include) > 5){
       
+      showModal(modalDialog(
+        title = "Filter applied to areas",
+        "Some areas have been removed so they fit on the graph- 
+        you may wish to add them back in by clicking in 'Areas to 
+        compare' (click anywhere to dismiss this message", 
+        easyClose = TRUE
+      ))
+      
       filtered_areas <- areas_to_include[1 : 5]
     } else {
       
