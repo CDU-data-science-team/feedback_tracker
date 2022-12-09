@@ -42,7 +42,9 @@ app_ui <- function(request) {
           uiOutput("directorate_UI"),
           checkboxInput("separate_area", "Break down individual areas"),
           uiOutput("filter_facetsUI"),
-          checkboxInput("separate_mode", "Separate mode of response")
+          checkboxInput("separate_mode", "Separate mode of response"),
+          hr(),
+          downloadButton("download_report")
         )
       ),
       dashboardBody(

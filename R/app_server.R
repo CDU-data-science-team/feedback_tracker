@@ -134,6 +134,26 @@ app_server <- function( input, output, session ) {
     )
   })
   
+  output$download_report <- downloadHandler({
+    
+    filename = "CustomReport.docx",
+    content = function(file){
+      
+      set_params = list(
+        period = input$period, 
+        mode = input$separate_mode,
+        area = input$select_area
+      )
+      
+      render("table_download.Rmd", output_format = "word_document",
+             output_file = "custom_report.docx", quiet = TRUE, params = params,
+             envir = new.env(parent = globalenv()))
+      
+      # copy docx to 'file'
+      file.copy("table_download.docx", file, overwrite = TRUE)
+    }
+  })
+  
   mod_summary_server("summary_ui_1", filter_data = filter_data, 
                      reactive_inputs = reactive_inputs)
 }

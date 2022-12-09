@@ -1,0 +1,12 @@
+---
+title: "Response totals"
+output: word_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Add in data load, filter, and table of responses here
+
